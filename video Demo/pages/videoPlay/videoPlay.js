@@ -40,7 +40,7 @@ Page({
       }
     })
   },
-  // 解析视频正真的地址
+  // 解析视频真正的地址
   requestVideoUrls: function (part_format_id, vid, fileName, index) {
     var keyApi = "https://vv.video.qq.com/getkey?otype=json&platform=11&format=" + part_format_id + "&vid=" + vid + "&filename=" + fileName + "&appver=3.2.19.333"
     var that = this;
