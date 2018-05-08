@@ -1,0 +1,7 @@
+<!--index.wxml-->
+<view class="container">
+<form bindsubmit="formSubmit">
+<input type='text' placeholder='请输入视频id' name="video_id"></input>
+ <button style='margin-top:20px;' formType="submit">确定</button>
+ </form>
+</view>

@@ -1,0 +1,4 @@
+<view class="pageView">
+<video id="myVideo" objectFit="cover" autoplay="true" bindended="playEnd" src="{{videUrl}}">
+	</video>
+</view>
