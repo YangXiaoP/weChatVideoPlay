@@ -78,7 +78,11 @@ Page({
     videoPage = 1;
     pageArr = new Array();
     part_urls = {};
-    this.getVideoInfo(this.data.file_id);
+    // getVideoUrl("i0692mp8job").then(data => {
+    //   console.log("测试");
+    //   console.log(data);
+    // });
+    // this.getVideoInfo(this.data.file_id);
   },
   // 因为视频超过10分钟之后，会分段，所以当视频为多段的时候，
   // 自动播放下一段视频

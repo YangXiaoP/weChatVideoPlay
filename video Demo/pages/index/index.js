@@ -1,5 +1,6 @@
 //index.js
 //获取应用实例
+import getVideoInfo from "../../utils/vqq.js"
 const app = getApp()
 
 Page({
@@ -8,7 +9,10 @@ Page({
   },
   
   onLoad: function () {
-   
+    getVideoInfo("i0692mp8job").then(data => {
+      console.log("测试");
+      console.log(data);
+    });
   },
   formSubmit: function (e) {
     var videoId = e.detail.value.video_id;

@@ -10,7 +10,7 @@
 	"compileType": "miniprogram",
 	"libVersion": "1.9.94",
 	"appid": "touristappid",
-	"projectname": "video%20Demo",
+	"projectname": "video",
 	"condition": {
 		"search": {
 			"current": -1,
