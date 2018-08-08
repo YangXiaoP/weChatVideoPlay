@@ -1,67 +1,10 @@
 
 var part_urls = {};
-var host;
 var videoPage;
 var pageArr = new Array()
+import qqVideo from "../../utils/qqVideo.js"
 
 Page({
-  data: {
-    videoUrls: '',
-    token: ''
-  },
-  // 请求视频信息
-  getVideoInfo: function (vid) {
-    var that = this;
-    var videoUrl = 'https://vv.video.qq.com/getinfo?otype=json&appver=3.2.19.333&platform=11&defnpayver=1&vid=' + vid;
-    wx.request({
-      url: videoUrl, 
-      success: function (res) {
-        var dataJson = res.data.replace(/QZOutputJson=/, '') + "qwe";
-        var dataJson1 = dataJson.replace(/;qwe/, '');
-        var data = JSON.parse(dataJson1);
-        var fn_pre = data.vl.vi[0].lnk
-        host = data['vl']['vi'][0]['ul']['ui'][0]['url']
-        var streams = data['fl']['fi']
-        var seg_cnt = data['vl']['vi'][0]['cl']['fc']
-        if (parseInt(seg_cnt) == 0) {
-          seg_cnt = 1
-        }
-        var best_quality = streams[streams.length - 1]['name']
-        var part_format_id = streams[streams.length - 1]['id']
-
-        for (var i = 1; i < (seg_cnt + 1); i++) {
-          var filename = fn_pre + '.p' + (part_format_id % 10000) + '.' + i + '.mp4';
-          console.log(filename);
-          pageArr.push(i);
-          that.requestVideoUrls(part_format_id, vid, filename, 'index' + i);
-
-        }
-
-      }
-    })
-  },
-  // 解析视频真正的地址
-  requestVideoUrls: function (part_format_id, vid, fileName, index) {
-    var keyApi = "https://vv.video.qq.com/getkey?otype=json&platform=11&format=" + part_format_id + "&vid=" + vid + "&filename=" + fileName + "&appver=3.2.19.333"
-    var that = this;
-    wx.request({
-      url: keyApi,
-      success: function (res) {
-        var dataJson = res.data.replace(/QZOutputJson=/, '') + "qwe";
-        var dataJson1 = dataJson.replace(/;qwe/, '');
-        var data = JSON.parse(dataJson1);
-        if (data.key != undefined) {
-          var vkey = data['key']
-          var url = host + fileName + '?vkey=' + vkey;
-          part_urls[index] = String(url)
-          that.setData({
-            videUrl: part_urls.index1
-          });
-        }
-      }
-    })
-  },
-
   onLoad: function (options) {
    
     if (options.vid != undefined) {
@@ -78,8 +21,20 @@ Page({
     videoPage = 1;
     pageArr = new Array();
     part_urls = {};
-    
-    this.getVideoInfo(this.data.file_id);
+    var that  = this;
+    const vid = options.vid;
+    console.log(vid);
+    qqVideo.getVideoes(vid).then(function (response) {
+      
+      for(var i=1;i<response.length+1;i++){
+        var indexStr = 'index'+(i)
+        pageArr.push(i);
+        part_urls[indexStr] = response[i-1];
+      }
+      that.setData({
+        videUrl: response[0],
+      });
+    });
   },
   // 因为视频超过10分钟之后，会分段，所以当视频为多段的时候，
   // 自动播放下一段视频
