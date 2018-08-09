@@ -40,7 +40,7 @@ Page({
   // 自动播放下一段视频
   playEnd: function () {
 
-    if (videoPage > parseInt(pageArr.length)) {
+    if (videoPage >= parseInt(pageArr.length)) {
       // part_urls = {};
       videoPage = 1;
       this.videoContext.exitFullScreen
@@ -53,7 +53,6 @@ Page({
       this.setData({
         videUrl: part_urls[index]
       });
-
     }
   },
   onReady: function () {
