@@ -59,7 +59,7 @@ getVideoes (vid) {
             part_format_id = part_format_ids[part_format_ids.length-1]
           }else {
             part_format_id = data['vl']['vi'][0]['cl']['ci'][i - 1]['keyid'].split('.')[1]
-            filename = [fn_pre, magic_str, str(i), video_type].join('.')
+            filename = [fn_pre, magic_str, i.toString(), video_type].join('.')
           }
           requestVideoUrls(part_format_id, vid, filename, host, seg_cnt).then(function (response) {
         resolve(response);
