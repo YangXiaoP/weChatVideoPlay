@@ -47,7 +47,7 @@ getVideoes (vid) {
         if (parseInt(seg_cnt) == 0) {
           seg_cnt = 1
         }else {
-          fn_pre, magic_str, video_type = filename.split('.')
+          [fn_pre, magic_str, video_type] = filename.split('.')
         }
 
         var part_urls = new Array()
